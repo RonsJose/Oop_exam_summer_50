@@ -22,15 +22,4 @@ public class BookService {
         return books;
     }
 
-
-    public Book getBoooking(long id) {
-        Book certainBook = null;
-        for (Book book : books) {
-            if (book.getId() == id) {
-                certainBook=book;
-                break;
-            }
-        }
-        return certainBook;
-    }
 }

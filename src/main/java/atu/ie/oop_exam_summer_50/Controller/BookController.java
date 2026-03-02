@@ -32,7 +32,20 @@ public class BookController {
     }
 
     @GetMapping("/show/{id}")
-    public ResponseEntity<Book> showBook(@PathVariable long id){
-        return new ResponseEntity<>(bookService.getBoooking(id),HttpStatus.OK);
+    public ResponseEntity<?> showBook(@PathVariable long id){
+        Book certainBook = null;
+        int check =0;
+        for (Book book : bookService.getBookings()) {
+            if (book.getId() == id) {
+                certainBook=book;
+                check = 1;
+                break;
+            }
+        }
+        if(check==0){
+            String er = "Id doesnt exist";
+            return ResponseEntity.badRequest().body(er);
+        }
+        return new ResponseEntity<>(certainBook,HttpStatus.OK);
     }
 }
