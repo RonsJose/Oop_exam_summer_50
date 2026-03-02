@@ -24,9 +24,15 @@ public class BookController {
         return new ResponseEntity<>(book, HttpStatus.OK);
     }
 
-    @GetMapping("/Show")
-    public ResponseEntity<List<Book>> showBook(){
 
+
+    @GetMapping("/Show")
+    public ResponseEntity<List<Book>> showBooks(){
       return new ResponseEntity<>(bookService.getBookings(), HttpStatus.OK);
+    }
+
+    @GetMapping("/show/{id}")
+    public ResponseEntity<Book> showBook(@PathVariable long id){
+        return new ResponseEntity<>(bookService.getBoooking(id),HttpStatus.OK);
     }
 }
