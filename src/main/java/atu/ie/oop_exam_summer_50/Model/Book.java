@@ -27,4 +27,12 @@ public class Book {
     @Positive(message = "Must enter a hour > 0")
     public int durationHours;
 
+    public Book() {
+        roomNumber = 0;
+        studentEmail = "";
+        bookingDate = "";
+        startHour = 0;
+        durationHours = 0;
+    }
+
 }

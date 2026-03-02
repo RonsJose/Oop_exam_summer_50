@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping
@@ -19,7 +20,19 @@ public class BookController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Book> createBook(@Valid @RequestBody Book book) {
+    public ResponseEntity<?> createBook(@Valid @RequestBody Book book) {
+        int check =0;
+        for (Book compare : bookService.getBookings()) {
+            if (Objects.equals(compare.getBookingDate(), book.getBookingDate()) & compare.getStartHour() == book.getStartHour() & compare.getRoomNumber() == book.getRoomNumber()) {
+                check = 1;
+                break;
+            }
+        }
+
+        if (check == 1) {
+            String er = "This room is already in use for this specific time, please pick another room or time";
+            return ResponseEntity.badRequest().body(er);
+        }
         bookService.addRoom(book);
         return new ResponseEntity<>(book, HttpStatus.OK);
     }
